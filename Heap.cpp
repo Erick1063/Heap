@@ -1,12 +1,14 @@
 #include "Heap.hpp"
 #include <math.h>
 #include <iostream>
+#include <queue> //Libreria cola,para el recorrido por anchura
 using std::cout;
 using std::endl;
+using std::queue;
 //Constructor de un heap de 0  ; la funcion ceil redondea un numero hacia arriba al siguiente entero
 Heap::Heap(int tamano){
 	this->Maxtamano=pow(2,ceil(log2(tamano)))-1;
-	this->AH=new int(this->Maxtamano);
+	this->AH=new int[this->Maxtamano];
 }
 //Constructor de un heap en base a un arreglo
 Heap::Heap(int tamano,int Arreglo[]){
@@ -42,7 +44,6 @@ int Heap::Padre(int i){
 int Heap::HijoI(int i){
 	if(2*i+1>=this->C){
 		cout<<"no tiene hijo izquierdo"<<endl;
-		return -1;
 	}else{
 		return this->AH[2*i+1];
 	}
@@ -151,4 +152,66 @@ void Heap::Bajar(int i){
 		Intercambiar(this->AH[i],this->AH[MaxIndex] );
 		Bajar(MaxIndex);
 	}
+}
+
+//Formas de recorrer un heap
+//In order
+int Heap::InOrder(int i){
+	if(i>=this->C){
+		return i;
+	}
+	else
+	{
+		InOrder(InHijoI(i));
+		cout<<" Nodo = "<<this->AH[i]<<"  ";
+		InOrder(InHijoD(i));	
+	}
+	return i;
+}
+//PreOrder
+int Heap::PreOrder(int i){
+	if(i >= this->C)
+	{
+		return i;
+	}
+	else
+	{
+		cout<<" Nodo = "<<this->AH[i]<<"  ";
+		PreOrder(InHijoI(i));
+		PreOrder(InHijoD(i));
+	}
+	return i;
+}
+//Post Order
+int Heap::PostOrder(int i)
+{
+	if(i>=this->C)
+	{
+		return i;
+	}
+	else
+	{
+		PostOrder(InHijoI(i));
+		PostOrder(InHijoD(i));
+		cout<<" Nodo = "<<this->AH[i]<<"  ";		
+	}
+	return i;
+}
+//BFS
+int Heap::BFS(int i){
+	queue<int> Q;
+	Q.push(this->AH[0]);
+	while(! Q.empty())
+	{
+		int Indice=Q.front();
+		Q.pop();
+		if(InHijoI(Indice)!=-1){
+			Q.push(InHijoI(Indice));
+		}
+		if(InHijoD(Indice)!=-1){
+			Q.push(InHijoD(Indice));
+		}
+		cout<<" Nodo = "<<this->AH[Indice]<<"  ";
+	}
+	return i;
 }

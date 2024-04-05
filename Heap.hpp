@@ -24,6 +24,11 @@ class Heap{
 		void Subir(int);   //Funcion auxiliar utilizada para subir un nodo
 		void Bajar(int);   //Funcion auxiliar utilizada para baja un nodo 
 		void MostrarHeap();//Muestra el arbol 
+		//Formas de recorrer el heap
+		int InOrder(int); //Pide como parametro un nodo
+		int PreOrder(int);//Pide como parametro un nodo
+		int PostOrder(int);//Pide como parametro un nodo
+		int BFS(int);
 			 
 		
 };
