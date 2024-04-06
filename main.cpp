@@ -41,7 +41,6 @@ int main()
 	cout << endl;
 	cout << "BFS" << endl;
 	H3.BFS();
-	cout<<"Sale del bfs"<<endl;
 
 	return 0;
 }

@@ -6,36 +6,36 @@ using namespace std;
 // Constructor de un heap de 0  ; la funcion ceil redondea un numero hacia arriba al siguiente entero
 Heap::Heap(const int tamano)
 {
-	this->Maxtamano = pow(2, ceil(log2(tamano))) - 1;
-	this->AH = new int(this->Maxtamano);
+	this->Maxtamano = pow(2, ceil(log2(tamano))) - 1; // 2^log_2(Numero de nodos en el arreglo)
+	this->AH = new int[this->Maxtamano];			  // se crea memoria dinamica, con el tamano maximo del arreglo
 }
 // Constructor de un heap en base a un arreglo
-Heap::Heap(const int tamano,const int Arreglo[])
+Heap::Heap(const int tamano, const int Arreglo[])
 {
-	this->Maxtamano = pow(2, ceil(log2(tamano))) - 1;
-	this->AH = new int(this->Maxtamano);
+	this->Maxtamano = pow(2, ceil(log2(tamano))) - 1; // 2^log_2(Numero de nodos en el arreglo)
+	this->AH = new int[this->Maxtamano];			  // se crea memoria dinamica, con el tamano maximo del arreglo
 	for (int i = 0; i < tamano; i++)
 	{
-		this->AH[i] = Arreglo[i];
+		this->AH[i] = Arreglo[i]; // se crea el arbol en base a un arreglo
 	}
 	this->C = tamano;
 }
 // Funcion que retorna el tamano maximo del arbol
-int Heap::getMaxtamano()const
+int Heap::getMaxtamano() const
 {
 	return this->Maxtamano;
 }
 // Funcion que retorna el arbol heap
-int *Heap::getAH()const
+int *Heap::getAH() const
 {
 	return this->AH;
 }
 // Funcion que retorna  padre de un nodo, en caso de tener
-int Heap::Padre(int i)const
+int Heap::Padre(int i) const
 {
 	if (i == 0)
 	{
-		cout << "Este nodo es la raiz, por lo tanto no tiene padre" << endl;
+		// cout << "Este nodo es la raiz, por lo tanto no tiene padre" << endl;
 		return -1;
 	}
 	else
@@ -44,11 +44,11 @@ int Heap::Padre(int i)const
 	}
 }
 // Funcion que retorna el hijo izquierdo de un nodo,en caso de tener
-int Heap::HijoI(int i)const
+int Heap::HijoI(int i) const
 {
 	if (2 * i + 1 >= this->C)
 	{
-		cout << "no tiene hijo izquierdo" << endl;
+		// cout << "no tiene hijo izquierdo" << endl;
 		return -1;
 	}
 	else
@@ -57,11 +57,11 @@ int Heap::HijoI(int i)const
 	}
 }
 // Funcion que retorna el hijo derecho de un nodo, en caso de tener
-int Heap::HijoD(int i)const
+int Heap::HijoD(int i) const
 {
 	if (2 * (i + 1) >= this->C)
 	{
-		cout << "No tiene hijo derecho" << endl;
+		// cout << "No tiene hijo derecho" << endl;
 		return -1;
 	}
 	else
@@ -70,11 +70,11 @@ int Heap::HijoD(int i)const
 	}
 }
 // Retorna el indice del padre
-int Heap::Inpadre(int i)const
+int Heap::Inpadre(int i) const
 {
 	if (i == 0)
 	{
-		cout << "Este nodo es la raiz, por lo tanto no tiene padre" << endl;
+		// cout << "Este nodo es la raiz, por lo tanto no tiene padre" << endl;
 		return -1;
 	}
 	else
@@ -83,11 +83,11 @@ int Heap::Inpadre(int i)const
 	}
 }
 // Retorna el indice del hijo izquierdo
-int Heap::InHijoI(int i)const
+int Heap::InHijoI(int i) const
 {
 	if (2 * i + 1 >= this->C)
 	{
-		cout << "no tiene hijo izquierdo" << endl;
+		// cout << "no tiene hijo izquierdo" << endl;
 		return -1;
 	}
 	else
@@ -96,11 +96,11 @@ int Heap::InHijoI(int i)const
 	}
 }
 // Retorna el indice del hijo derecho
-int Heap::InHijoD(int i)const
+int Heap::InHijoD(int i) const
 {
 	if (2 * (i + 1) >= this->C)
 	{
-		cout << "No tiene hijo derecho" << endl;
+		// cout << "No tiene hijo derecho" << endl;
 		return -1;
 	}
 	else
@@ -123,7 +123,7 @@ void Heap::Insertar(const int data)
 	}
 }
 // Intercambia de posiciones 2 nodos
-void Heap::Intercambiar(const int i,const int j)
+void Heap::Intercambiar(const int i, const int j)
 {
 	int aux = this->AH[i];
 	int aux2 = this->AH[j];
@@ -222,5 +222,27 @@ void Heap::PostOrder(const int i)
 // BFS
 void Heap::BFS()
 {
-	
+	int l = 0;
+	int aux = 0;
+	if (this->C == 0)
+	{
+		cout << "Heap vacio" << endl;
+	}
+	else
+	{
+		for (int i = 0; i < this->C; i++)
+		{
+
+			if (i < pow(2, l) + aux)
+			{
+				cout << " Nodo= " << this->AH[i] << " ";
+			}
+			else
+			{
+				cout << " Nodo= " << this->AH[i] << " ";
+				aux = i;
+				l = l + 1;
+			}
+		}
+	}
 }
